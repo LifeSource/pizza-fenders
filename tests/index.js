@@ -1,0 +1,1 @@
+require("./dummy.spec.js");
