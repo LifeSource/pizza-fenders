@@ -14,7 +14,7 @@ module.exports = {
             config.src + "/index.js"
         ]
     },
-    devtool: "source-map",
+    //devtool: "source-map",
     output: {
         path: config.dist,
         filename: "/js/[name].bundle.js"

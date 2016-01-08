@@ -3,6 +3,8 @@
 var mongoose = require('mongoose'),
     seedData = require('./models/seedData');
 
+var Pizza = require("./models/pizza/pizza.model");
+
 var connectionString = 'mongodb://localhost/pizza-fenders',
     db = mongoose.connect(connectionString);
 
@@ -19,9 +21,18 @@ db.connection.on('disconnected', function() {
     console.log('Mongoose disconnected');
 });
 
+var database = mongoose.connection;
+
 function seedDatabase(seedData) {
-    console.log(seedData);
-    // Your seed data code here 
+
+    Pizza.find()
+        .exec(function (err, pizzas) {
+            if (pizzas.length === 0) {
+                database.collection("Pizzas").insert(seedData.pizzas);
+            } else {
+                console.log("Database already seeded!");
+            }
+        });
     
     console.log("Seeding database ...");
 }

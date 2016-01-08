@@ -35,11 +35,15 @@ export default class Index extends React.Component {
     }
 }
 
-render((
-    <Router>
-        <Route path="/" component={Index}>
-            <Route path="home" component={Home} /> 
-            <Route path="about" component={About} /> 
-        </Route>
-    </Router>
-), document.getElementById("container"));
+const routes = {
+    path: "/",
+    component: Index,
+    indexRoute: { component: Home },
+    childRoutes: [
+        { path: "home", component: Home },
+        { path: "about", component: About}
+    ]
+};
+
+
+render(<Router routes={routes} history={browserHistory} />, document.getElementById("container"));

@@ -17,12 +17,20 @@ require("./database.js");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+require("./routes/index")(app);
+
 app.use(express.static(config.dist));
 app.use("/*", express.static(config.dist + config.index));
 
 if (config.env === "dev") {
     var browserSync = require("browser-sync");
-    browserSync.init({ server: config.dist });
+
+    if (browserSync.active) return;
+
+    browserSync.init({ 
+        proxy: "localhost:" + config.port,             
+        port: 8000 
+    });
     browserSync.watch(config.dist + "**/*.*").on("change", browserSync.reload);
 }
 
