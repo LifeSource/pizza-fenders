@@ -12,7 +12,7 @@
     "prebuild": "npm-run-all clean make",
     "build": "npm-run-all build:**",
     "build:html": "cpx src/index.html dist/",
-    "build:images": "imagemin --optimizationLevel 4 src/images/*.* dist/images",
+    "build:images": "imagemin --optimizationLevel 4 src/images/* dist/images",
     "build:js": "webpack",
     "watch:js": "npm run build:js -- --watch",
     "preserve": "npm run build",

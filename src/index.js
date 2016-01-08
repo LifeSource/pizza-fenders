@@ -2,8 +2,8 @@ import React from "react";
 import { render } from "react-dom";
 import { Router, Route, Link, browserHistory } from "react-router";
 
-import Home from "./home/home.js";
-import About from "./about/about.js";
+import Home from "./components/home/home";
+import About from "./components/about/about";
 
 require("../styles/layout.styl");
 require("../styles/site.styl");
@@ -19,7 +19,7 @@ export default class Index extends React.Component {
         return (
             <div>
                 <header>
-                    <img className="logo" src="images/reactlogo.png" alt="react's logo"/>
+                    <img className="logo" src="/images/reactlogo.png" alt="react's logo"/>
                     <ul className="nav-list">
                         <li>
                             <Link to="/home">Home</Link>

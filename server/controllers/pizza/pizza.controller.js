@@ -60,7 +60,6 @@ module.exports = function () {
     }
 
     function query(req, res) {
-        console.log("Pizza Route Got here!");
         Pizza.find().exec(function (err, pizzas) {
             (err) ? res.status(500).send(err) : res.json(pizzas);
         });

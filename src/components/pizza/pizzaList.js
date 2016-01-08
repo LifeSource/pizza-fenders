@@ -17,7 +17,6 @@ class PizzaList extends React.Component {
     }
 
     render() {
-        console.log("data: ", this.state.pizzas);
 
         return(
             <div>
@@ -28,6 +27,9 @@ class PizzaList extends React.Component {
         );
     }
 }
+
+PizzaList.PropType = { url: React.PropTypes.string };
+PizzaList.defaultProps = { url: "/api/pizzas" };
 
 export default PizzaList;
 

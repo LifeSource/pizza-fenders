@@ -6,14 +6,15 @@ class Menu extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = { order: [] };
     }
 
     render() {
 
         return (
             <div className="pizza-menu">
-                <PizzaList url={this.props.url} />
-                <Invoice />
+                <PizzaList order={this.state.order} />
+                <Invoice order={this.state.order} />
             </div>
         );
     }
