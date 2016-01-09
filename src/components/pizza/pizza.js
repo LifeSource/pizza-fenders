@@ -12,6 +12,8 @@ class Pizza extends React.Component {
     }
 
     render() {
+        
+        var isVeg = this.props.pizza.isVeg;
 
         return (
             <div className="pizza-item">
@@ -30,8 +32,8 @@ class Pizza extends React.Component {
                 <div className="price-tag">
                     <span>{numeral(this.props.pizza.price).format("$0,0.00")}</span>
                 </div>
-                <div className="isAvailable">
-                    <button>Available</button>
+                <div className={isVeg ? "isVeg" : ""}>
+                   <div className="vegText">{isVeg ? "Vegetarian" : ""}</div>
                 </div>
             </div>        
         );

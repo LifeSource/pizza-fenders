@@ -26084,6 +26084,8 @@
 	        key: "render",
 	        value: function render() {
 
+	            var isVeg = this.props.pizza.isVeg;
+
 	            return _react2.default.createElement(
 	                "div",
 	                { className: "pizza-item" },
@@ -26128,11 +26130,11 @@
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "isAvailable" },
+	                    { className: isVeg ? "isVeg" : "" },
 	                    _react2.default.createElement(
-	                        "button",
-	                        null,
-	                        "Available"
+	                        "div",
+	                        { className: "vegText" },
+	                        isVeg ? "Vegetarian" : ""
 	                    )
 	                )
 	            );

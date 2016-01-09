@@ -113,6 +113,18 @@ body {
   text-align: right;
   margin-right: 20px;
 }
+.isVeg {
+  margin-left: 50px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.vegText {
+  margin: auto;
+}
 .invoice-item {
   margin-right: 20px;
   font-size: 1.5em;
