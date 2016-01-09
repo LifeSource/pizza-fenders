@@ -11,7 +11,7 @@ var connectionString;
 
 switch (config.env) {
     case "production":
-        connectionString = "mongodb://fenders:fenders@ds039185.mongolab.com:39185/pizza-fenders";
+        connectionString = "mongodb://pizza-fenders:fenders@ds039185.mongolab.com:39185/pizza-fenders";
         break;
     default:
         connectionString = "mongodb://localhost/pizza-fenders";
