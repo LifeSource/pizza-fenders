@@ -7,7 +7,6 @@ class Pizza extends React.Component {
         super(props);
     }
 
-
     addPizza() {
         this.props.addToOrder(this.props.pizza);
     }
@@ -30,6 +29,9 @@ class Pizza extends React.Component {
 
                 <div className="price-tag">
                     <span>{numeral(this.props.pizza.price).format("$0,0.00")}</span>
+                </div>
+                <div className="isAvailable">
+                    <button>Available</button>
                 </div>
             </div>        
         );

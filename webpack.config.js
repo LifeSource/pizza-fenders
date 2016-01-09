@@ -45,7 +45,7 @@ module.exports = {
         return [autoprefixer({ browsers: "last 2 version" }), precss];    
     },
     plugins: [
-        new Webpack.optimize.UglifyJsPlugin({ minimize: true }),
+        //new Webpack.optimize.UglifyJsPlugin({ minimize: true }),
         new ExtractTextPlugin("styles/[name].bundle.css"),
         new WebpackNotification()
     ],

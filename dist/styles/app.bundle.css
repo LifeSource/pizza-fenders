@@ -1,1 +1,160 @@
-@import url(https://fonts.googleapis.com/css?family=Monda:400,70);body,html,img{width:100%}body,h1,h2,h3,h4,h5,h6{padding:0;margin:0}header{display:-webkit-flex;display:-ms-flexbox;display:flex;height:100px;color:#eee;background:#333230;font-size:1.5em}header a,header a:active,header a:hover,header a:link,header a:visited{color:#eee;text-decoration:none}.nav-list,header img{margin:auto}.nav-list{display:-webkit-flex;display:-ms-flexbox;display:flex;list-style:none}.nav-list li{padding-right:20px}body{background:#fff;font-family:Monda,sans-serif}.logo{width:100px;height:100px}.pizza-menu{padding:10px;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-justify-content:space-around;-ms-flex-pack:distribute;justify-content:space-around}.pizza-list{width:50%}.pizza-item{padding:10px;border:2px solid #000;margin-bottom:10px;display:-webkit-flex;display:-ms-flexbox;display:flex}.pizza-profile img:hover{position:relative;-webkit-transform:scaleX(2) scaleY(2);transform:scaleX(2) scaleY(2);transition:-webkit-transform .5s ease;transition:transform .5s ease;transition:transform .5s ease,-webkit-transform .5s ease}.pizza-info{width:33%;margin-left:20px}.price-tag{font-size:2.5em;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-left:20px}.price-tag span{margin:auto}.add-order-button{color:#eee;width:150px;padding:8px 0;margin-top:20px;text-align:center;border-radius:5px;background:#0b3a0c}.add-order-button:hover{color:#000;background:#cbc9d0}.thumbnail{width:150px;height:100px}.invoice{width:40%;border:2px solid #000}.invoice .invoice-total,.invoice h2{margin-right:20px;font-size:2.5em;text-align:right}.total{display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end}.orderItem{-webkit-animation-duration:2s;animation-duration:2s;-webkit-animation-name:slidein;animation-name:slidein}@-webkit-keyframes slidein{0%{opacity:0}to{opacity:1}}@keyframes slidein{0%{opacity:0}to{opacity:1}}
+@import url(https://fonts.googleapis.com/css?family=Monda:400,70);html, body, img {
+  width: 100%;
+}
+body, h1, h2, h3, h4, h5, h6 {
+  padding: 0;
+  margin: 0;
+}
+header {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100px;
+  color: #eee;
+  background: #333230;
+  font-size: 1.5em;
+}
+header a, header a:link, header a:visited, header a:hover, header a:active {
+  color: #eee;
+  text-decoration: none;
+}
+header img {
+  margin: auto;
+}
+.nav-list {
+  margin: auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+}
+.nav-list li {
+  padding-right: 20px;
+}
+.about-page {
+  margin: 25px;
+}
+body {
+  background: #fff;
+  font-family: 'Monda', sans-serif;
+}
+.logo {
+  width: 100px;
+  height: 100px;
+}
+.pizza-menu {
+  padding: 2%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+}
+.pizza-list {
+  width: 50%;
+}
+.pizza-item {
+  padding: 10px;
+  border: 2px solid #000;
+  margin-bottom: 10px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.pizza-profile img:hover {
+  position: relative;
+  -webkit-transform: scaleX(2) scaleY(2);
+          transform: scaleX(2) scaleY(2);
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+}
+.pizza-info {
+  width: 33%;
+  margin-left: 20px;
+}
+.price-tag {
+  font-size: 2.5em;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 20px;
+}
+.price-tag span {
+  margin: auto;
+}
+.add-order-button {
+  color: #eee;
+  width: 150px;
+  padding: 8px 0;
+  margin-top: 20px;
+  text-align: center;
+  border-radius: 5px;
+  background: #0b3a0c;
+  transition: background 0.5s ease-in;
+}
+.add-order-button:hover {
+  color: #000;
+  background: #cbc9d0;
+}
+.thumbnail {
+  width: 150px;
+  height: 100px;
+}
+.invoice {
+  width: 40%;
+  border: 2px solid #000;
+}
+.invoice h2, .invoice .invoice-total {
+  font-size: 2.5em;
+}
+.invoice h2, .invoice h3, .invoice .invoice-item, .invoice .invoice-total {
+  text-align: right;
+  margin-right: 20px;
+}
+.invoice-item {
+  margin-right: 20px;
+  font-size: 1.5em;
+}
+.invoice-heading {
+  color: #eee;
+  background: #45485a;
+}
+.invoice-heading h2 {
+  text-align: center;
+}
+.total {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.orderItem {
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-name: slidein;
+          animation-name: slidein;
+}
+@-webkit-keyframes slidein {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+@keyframes slidein {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}

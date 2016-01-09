@@ -1,9 +1,10 @@
 import React from "react";
 import Invoice from "../invoice/invoice";
 import Pizza from "../pizza/pizza";
+import PizzaList from "../pizza/pizzaList";
 import PizzaService from "../pizza/pizza.service";
 
-class Menu extends React.Component {
+export default class App extends React.Component {
 
     constructor(props) {
         super(props);
@@ -55,30 +56,18 @@ class Menu extends React.Component {
             .catch((error) =>  console.log("Error: ", error));
     }
 
-    renderPizzaList(pizza, index) {
-        return <Pizza pizza={pizza} key={index}  />;
-    }
-
     render() {
 
-
         return (
-            <div className="pizza-menu">
-                <div>
-                    <ul>
-                        {this.state.pizzas.map((pizza, index) => {
-                            return <Pizza pizza={pizza} key={index} addToOrder={this.addOrder.bind(this)} />
-                        })}
-                    </ul>
+            <div>
+                <div className="pizza-menu">
+                    <PizzaList addToOrder={this.addOrder.bind(this)} />
+                    <Invoice orders={this.state.order}  />
                 </div>
-                <Invoice orders={this.state.order}  />
             </div>
         );
     }
 }
 
-Menu.PropTypes = { url: React.PropTypes.string };
-Menu.defaultProps = { url: "/api/pizzas" };
-
-export default Menu;
-
+App.PropTypes = { url: React.PropTypes.string };
+App.defaultProps = { url: "/api/pizzas" };

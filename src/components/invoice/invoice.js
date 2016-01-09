@@ -14,15 +14,15 @@ class Invoice extends React.Component {
         var total = numeral(this.props.orders.total).format("$0,0.00");
         return (
             <div className="invoice">
-                <div>
+                <div className="invoice-heading">
+                    <h2>Invoice</h2>
+                </div>
+                <div className="invoice-item">
                     {this.props.orders.items.map((order, index) => {
-                        return (
-                            <OrderItem order={order} key={index} />
-                        );
+                        return <OrderItem order={order} key={index} />;
                     })}
                 </div>
-
-                <h3>GST +{this.state.gst * 100}%</h3>
+                <h3>+{this.state.gst * 100}% GST</h3>
                 <hr/>
                 <div className="total">
                     <h2>Total:</h2>

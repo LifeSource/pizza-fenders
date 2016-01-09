@@ -1,5 +1,5 @@
 import React from "react";
-import Menu from "../menu/menu";
+import App from "../app/app";
 
 export default class Home extends React.Component {
 
@@ -8,6 +8,6 @@ export default class Home extends React.Component {
     }
 
     render() {
-        return <Menu />;
+        return <App />;
     }
 }

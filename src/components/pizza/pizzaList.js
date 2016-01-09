@@ -11,7 +11,7 @@ class PizzaList extends React.Component {
     }
 
     componentDidMount() {
-        this.pizzaService.get(this.props.url)
+        this.pizzaService.getAll(this.props.url)
             .then((data) => this.setState({ pizzas: data }))
             .catch((error) => console.error(error));
     }
@@ -21,7 +21,7 @@ class PizzaList extends React.Component {
         return(
             <div className="pizza-list">
                 {this.state.pizzas.map((pizza, index) => {
-                   return(<Pizza pizza={pizza} key={index} order={this.props.order}/>);
+                    return <Pizza pizza={pizza} key={index} addToOrder={this.props.addToOrder} />
                 })}
             </div>
         );
