@@ -4,13 +4,16 @@ body
     font-family 'Monda', sans-serif
 
 .logo
-    width 50px
-    height 50px
+    width 100px
+    height 100px
 
 .pizza-menu
     padding 10px
     display flex
-    justify-content space-around 
+    justify-content space-around
+
+.pizza-list
+    width 50%
 
 .pizza-item
     padding 10px
@@ -37,14 +40,6 @@ body
     span
         margin auto
 
-.invoice
-    width 600px
-    border 2px solid black
-
-    h2, .invoice-total
-        margin-right 20px
-        font-size 2.5em
-        text-align right
 
 .add-order-button
     color #ee
@@ -62,3 +57,30 @@ body
 .thumbnail
     width 150px
     height 100px
+
+.invoice
+    width 40%
+    border 2px solid black
+
+    h2, .invoice-total
+        margin-right 20px
+        font-size 2.5em
+        text-align right
+
+.total
+    display flex
+    justify-content flex-end
+
+.orderItem
+    animation-duration 2s
+    animation-name slidein
+
+@keyframes slidein {
+    from {
+       opacity 0     
+    }
+
+    to {
+        opacity 1
+    }
+}

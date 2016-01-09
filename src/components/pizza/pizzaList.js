@@ -19,9 +19,9 @@ class PizzaList extends React.Component {
     render() {
 
         return(
-            <div>
+            <div className="pizza-list">
                 {this.state.pizzas.map((pizza, index) => {
-                   return(<Pizza pizza={pizza} key={index}/>);
+                   return(<Pizza pizza={pizza} key={index} order={this.props.order}/>);
                 })}
             </div>
         );

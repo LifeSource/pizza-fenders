@@ -89,21 +89,21 @@
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _about = __webpack_require__(257);
+	var _about = __webpack_require__(280);
 
 	var _about2 = _interopRequireDefault(_about);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(258);
-	__webpack_require__(262);
+	__webpack_require__(281);
+	__webpack_require__(285);
 
 	var Index = function (_React$Component) {
 	    (0, _inherits3.default)(Index, _React$Component);
 
-	    function Index() {
+	    function Index(props) {
 	        (0, _classCallCheck3.default)(this, Index);
-	        return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Index).call(this));
+	        return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Index).call(this, props));
 	    }
 
 	    (0, _createClass3.default)(Index, [{
@@ -117,6 +117,11 @@
 	                    "header",
 	                    null,
 	                    _react2.default.createElement("img", { className: "logo", src: "/images/reactlogo.png", alt: "react's logo" }),
+	                    _react2.default.createElement(
+	                        "h1",
+	                        null,
+	                        " <Pizza-Fenders>"
+	                    ),
 	                    _react2.default.createElement(
 	                        "ul",
 	                        { className: "nav-list" },
@@ -24995,7 +25000,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _menu = __webpack_require__(264);
+	var _menu = __webpack_require__(257);
 
 	var _menu2 = _interopRequireDefault(_menu);
 
@@ -25054,93 +25059,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var About = function (_React$Component) {
-	    (0, _inherits3.default)(About, _React$Component);
-
-	    function About() {
-	        (0, _classCallCheck3.default)(this, About);
-	        return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(About).call(this));
-	    }
-
-	    (0, _createClass3.default)(About, [{
-	        key: "render",
-	        value: function render() {
-
-	            return _react2.default.createElement(
-	                "div",
-	                null,
-	                _react2.default.createElement(
-	                    "h1",
-	                    null,
-	                    "About Component"
-	                )
-	            );
-	        }
-	    }]);
-	    return About;
-	}(_react2.default.Component);
-
-	exports.default = About;
-
-/***/ },
-/* 258 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 263 */,
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _getPrototypeOf = __webpack_require__(2);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(14);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(15);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(19);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(44);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	var _react = __webpack_require__(51);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _pizzaList = __webpack_require__(265);
-
-	var _pizzaList2 = _interopRequireDefault(_pizzaList);
-
-	var _invoice = __webpack_require__(285);
+	var _invoice = __webpack_require__(258);
 
 	var _invoice2 = _interopRequireDefault(_invoice);
+
+	var _pizza = __webpack_require__(261);
+
+	var _pizza2 = _interopRequireDefault(_pizza);
+
+	var _pizza3 = __webpack_require__(262);
+
+	var _pizza4 = _interopRequireDefault(_pizza3);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25152,19 +25081,85 @@
 
 	        var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Menu).call(this, props));
 
-	        _this.state = { order: [] };
+	        _this.pizzaService = new _pizza4.default();
+
+	        _this.state = {
+	            order: {
+	                items: [],
+	                total: 0
+	            },
+	            pizzas: []
+	        };
 	        return _this;
 	    }
 
 	    (0, _createClass3.default)(Menu, [{
+	        key: "addOrder",
+	        value: function addOrder(pizza) {
+
+	            if (!this.alreadyInOrder(pizza)) {
+	                this.setState({
+	                    order: {
+	                        items: this.state.order.items.concat(pizza),
+	                        total: this.calculateTotal(pizza.price)
+	                    }
+	                });
+	            } else {
+	                this.setState({
+	                    order: {
+	                        items: this.state.order.items,
+	                        total: this.calculateTotal(pizza.price)
+	                    }
+	                });
+	            }
+	        }
+	    }, {
+	        key: "alreadyInOrder",
+	        value: function alreadyInOrder(pizza) {
+	            return !(this.state.order.items.indexOf(pizza) === -1);
+	        }
+	    }, {
+	        key: "calculateTotal",
+	        value: function calculateTotal(pizzaPrice) {
+	            var gst = 1.1;
+	            return (this.state.order.total += pizzaPrice) * gst;
+	        }
+	    }, {
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            this.pizzaService.getAll(this.props.url).then(function (data) {
+	                return _this2.setState({ pizzas: data });
+	            }).catch(function (error) {
+	                return console.log("Error: ", error);
+	            });
+	        }
+	    }, {
+	        key: "renderPizzaList",
+	        value: function renderPizzaList(pizza, index) {
+	            return _react2.default.createElement(_pizza2.default, { pizza: pizza, key: index });
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
+	            var _this3 = this;
 
 	            return _react2.default.createElement(
 	                "div",
 	                { className: "pizza-menu" },
-	                _react2.default.createElement(_pizzaList2.default, { order: this.state.order }),
-	                _react2.default.createElement(_invoice2.default, { order: this.state.order })
+	                _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    _react2.default.createElement(
+	                        "ul",
+	                        null,
+	                        this.state.pizzas.map(function (pizza, index) {
+	                            return _react2.default.createElement(_pizza2.default, { pizza: pizza, key: index, addToOrder: _this3.addOrder.bind(_this3) });
+	                        })
+	                    )
+	                ),
+	                _react2.default.createElement(_invoice2.default, { orders: this.state.order })
 	            );
 	        }
 	    }]);
@@ -25177,7 +25172,7 @@
 	exports.default = Menu;
 
 /***/ },
-/* 265 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25210,63 +25205,76 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _pizza = __webpack_require__(266);
+	var _orderItem = __webpack_require__(259);
 
-	var _pizza2 = _interopRequireDefault(_pizza);
-
-	var _pizza3 = __webpack_require__(267);
-
-	var _pizza4 = _interopRequireDefault(_pizza3);
+	var _orderItem2 = _interopRequireDefault(_orderItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var PizzaList = function (_React$Component) {
-	    (0, _inherits3.default)(PizzaList, _React$Component);
+	var numeral = __webpack_require__(260);
 
-	    function PizzaList(props) {
-	        (0, _classCallCheck3.default)(this, PizzaList);
+	var Invoice = function (_React$Component) {
+	    (0, _inherits3.default)(Invoice, _React$Component);
 
-	        var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(PizzaList).call(this, props));
+	    function Invoice(props) {
+	        (0, _classCallCheck3.default)(this, Invoice);
 
-	        _this.state = { pizzas: [] };
-	        _this.pizzaService = new _pizza4.default();
+	        var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Invoice).call(this, props));
+
+	        _this.state = { total: 0, gst: 0.1 };
 	        return _this;
 	    }
 
-	    (0, _createClass3.default)(PizzaList, [{
-	        key: "componentDidMount",
-	        value: function componentDidMount() {
-	            var _this2 = this;
-
-	            this.pizzaService.get(this.props.url).then(function (data) {
-	                return _this2.setState({ pizzas: data });
-	            }).catch(function (error) {
-	                return console.error(error);
-	            });
-	        }
-	    }, {
+	    (0, _createClass3.default)(Invoice, [{
 	        key: "render",
 	        value: function render() {
 
+	            var total = numeral(this.props.orders.total).format("$0,0.00");
 	            return _react2.default.createElement(
 	                "div",
-	                null,
-	                this.state.pizzas.map(function (pizza, index) {
-	                    return _react2.default.createElement(_pizza2.default, { pizza: pizza, key: index });
-	                })
+	                { className: "invoice" },
+	                _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    this.props.orders.items.map(function (order, index) {
+	                        return _react2.default.createElement(_orderItem2.default, { order: order, key: index });
+	                    })
+	                ),
+	                _react2.default.createElement(
+	                    "h3",
+	                    null,
+	                    "GST +",
+	                    this.state.gst * 100,
+	                    "%"
+	                ),
+	                _react2.default.createElement("hr", null),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "total" },
+	                    _react2.default.createElement(
+	                        "h2",
+	                        null,
+	                        "Total:"
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "invoice-total" },
+	                        " ",
+	                        total,
+	                        " "
+	                    )
+	                ),
+	                _react2.default.createElement("hr", null)
 	            );
 	        }
 	    }]);
-	    return PizzaList;
+	    return Invoice;
 	}(_react2.default.Component);
 
-	PizzaList.PropType = { url: _react2.default.PropTypes.string };
-	PizzaList.defaultProps = { url: "/api/pizzas" };
-
-	exports.default = PizzaList;
+	exports.default = Invoice;
 
 /***/ },
-/* 266 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25300,6 +25308,759 @@
 	var _react2 = _interopRequireDefault(_react);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var numeral = __webpack_require__(260);
+
+	var OrderItem = function (_React$Component) {
+	    (0, _inherits3.default)(OrderItem, _React$Component);
+
+	    function OrderItem(pros) {
+	        (0, _classCallCheck3.default)(this, OrderItem);
+	        return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(OrderItem).call(this, pros));
+	    }
+
+	    (0, _createClass3.default)(OrderItem, [{
+	        key: "render",
+	        value: function render() {
+
+	            var price = numeral(this.props.order.price).format("$0,0.00");
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "orderItem" },
+	                this.props.order.name,
+	                " - ",
+	                price,
+	                _react2.default.createElement("hr", null)
+	            );
+	        }
+	    }]);
+	    return OrderItem;
+	}(_react2.default.Component);
+
+	exports.default = OrderItem;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * numeral.js
+	 * version : 1.5.3
+	 * author : Adam Draper
+	 * license : MIT
+	 * http://adamwdraper.github.com/Numeral-js/
+	 */
+
+	(function () {
+
+	    /************************************
+	        Constants
+	    ************************************/
+
+	    var numeral,
+	        VERSION = '1.5.3',
+	        // internal storage for language config files
+	        languages = {},
+	        currentLanguage = 'en',
+	        zeroFormat = null,
+	        defaultFormat = '0,0',
+	        // check for nodeJS
+	        hasModule = (typeof module !== 'undefined' && module.exports);
+
+
+	    /************************************
+	        Constructors
+	    ************************************/
+
+
+	    // Numeral prototype object
+	    function Numeral (number) {
+	        this._value = number;
+	    }
+
+	    /**
+	     * Implementation of toFixed() that treats floats more like decimals
+	     *
+	     * Fixes binary rounding issues (eg. (0.615).toFixed(2) === '0.61') that present
+	     * problems for accounting- and finance-related software.
+	     */
+	    function toFixed (value, precision, roundingFunction, optionals) {
+	        var power = Math.pow(10, precision),
+	            optionalsRegExp,
+	            output;
+	            
+	        //roundingFunction = (roundingFunction !== undefined ? roundingFunction : Math.round);
+	        // Multiply up by precision, round accurately, then divide and use native toFixed():
+	        output = (roundingFunction(value * power) / power).toFixed(precision);
+
+	        if (optionals) {
+	            optionalsRegExp = new RegExp('0{1,' + optionals + '}$');
+	            output = output.replace(optionalsRegExp, '');
+	        }
+
+	        return output;
+	    }
+
+	    /************************************
+	        Formatting
+	    ************************************/
+
+	    // determine what type of formatting we need to do
+	    function formatNumeral (n, format, roundingFunction) {
+	        var output;
+
+	        // figure out what kind of format we are dealing with
+	        if (format.indexOf('$') > -1) { // currency!!!!!
+	            output = formatCurrency(n, format, roundingFunction);
+	        } else if (format.indexOf('%') > -1) { // percentage
+	            output = formatPercentage(n, format, roundingFunction);
+	        } else if (format.indexOf(':') > -1) { // time
+	            output = formatTime(n, format);
+	        } else { // plain ol' numbers or bytes
+	            output = formatNumber(n._value, format, roundingFunction);
+	        }
+
+	        // return string
+	        return output;
+	    }
+
+	    // revert to number
+	    function unformatNumeral (n, string) {
+	        var stringOriginal = string,
+	            thousandRegExp,
+	            millionRegExp,
+	            billionRegExp,
+	            trillionRegExp,
+	            suffixes = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+	            bytesMultiplier = false,
+	            power;
+
+	        if (string.indexOf(':') > -1) {
+	            n._value = unformatTime(string);
+	        } else {
+	            if (string === zeroFormat) {
+	                n._value = 0;
+	            } else {
+	                if (languages[currentLanguage].delimiters.decimal !== '.') {
+	                    string = string.replace(/\./g,'').replace(languages[currentLanguage].delimiters.decimal, '.');
+	                }
+
+	                // see if abbreviations are there so that we can multiply to the correct number
+	                thousandRegExp = new RegExp('[^a-zA-Z]' + languages[currentLanguage].abbreviations.thousand + '(?:\\)|(\\' + languages[currentLanguage].currency.symbol + ')?(?:\\))?)?$');
+	                millionRegExp = new RegExp('[^a-zA-Z]' + languages[currentLanguage].abbreviations.million + '(?:\\)|(\\' + languages[currentLanguage].currency.symbol + ')?(?:\\))?)?$');
+	                billionRegExp = new RegExp('[^a-zA-Z]' + languages[currentLanguage].abbreviations.billion + '(?:\\)|(\\' + languages[currentLanguage].currency.symbol + ')?(?:\\))?)?$');
+	                trillionRegExp = new RegExp('[^a-zA-Z]' + languages[currentLanguage].abbreviations.trillion + '(?:\\)|(\\' + languages[currentLanguage].currency.symbol + ')?(?:\\))?)?$');
+
+	                // see if bytes are there so that we can multiply to the correct number
+	                for (power = 0; power <= suffixes.length; power++) {
+	                    bytesMultiplier = (string.indexOf(suffixes[power]) > -1) ? Math.pow(1024, power + 1) : false;
+
+	                    if (bytesMultiplier) {
+	                        break;
+	                    }
+	                }
+
+	                // do some math to create our number
+	                n._value = ((bytesMultiplier) ? bytesMultiplier : 1) * ((stringOriginal.match(thousandRegExp)) ? Math.pow(10, 3) : 1) * ((stringOriginal.match(millionRegExp)) ? Math.pow(10, 6) : 1) * ((stringOriginal.match(billionRegExp)) ? Math.pow(10, 9) : 1) * ((stringOriginal.match(trillionRegExp)) ? Math.pow(10, 12) : 1) * ((string.indexOf('%') > -1) ? 0.01 : 1) * (((string.split('-').length + Math.min(string.split('(').length-1, string.split(')').length-1)) % 2)? 1: -1) * Number(string.replace(/[^0-9\.]+/g, ''));
+
+	                // round if we are talking about bytes
+	                n._value = (bytesMultiplier) ? Math.ceil(n._value) : n._value;
+	            }
+	        }
+	        return n._value;
+	    }
+
+	    function formatCurrency (n, format, roundingFunction) {
+	        var symbolIndex = format.indexOf('$'),
+	            openParenIndex = format.indexOf('('),
+	            minusSignIndex = format.indexOf('-'),
+	            space = '',
+	            spliceIndex,
+	            output;
+
+	        // check for space before or after currency
+	        if (format.indexOf(' $') > -1) {
+	            space = ' ';
+	            format = format.replace(' $', '');
+	        } else if (format.indexOf('$ ') > -1) {
+	            space = ' ';
+	            format = format.replace('$ ', '');
+	        } else {
+	            format = format.replace('$', '');
+	        }
+
+	        // format the number
+	        output = formatNumber(n._value, format, roundingFunction);
+
+	        // position the symbol
+	        if (symbolIndex <= 1) {
+	            if (output.indexOf('(') > -1 || output.indexOf('-') > -1) {
+	                output = output.split('');
+	                spliceIndex = 1;
+	                if (symbolIndex < openParenIndex || symbolIndex < minusSignIndex){
+	                    // the symbol appears before the "(" or "-"
+	                    spliceIndex = 0;
+	                }
+	                output.splice(spliceIndex, 0, languages[currentLanguage].currency.symbol + space);
+	                output = output.join('');
+	            } else {
+	                output = languages[currentLanguage].currency.symbol + space + output;
+	            }
+	        } else {
+	            if (output.indexOf(')') > -1) {
+	                output = output.split('');
+	                output.splice(-1, 0, space + languages[currentLanguage].currency.symbol);
+	                output = output.join('');
+	            } else {
+	                output = output + space + languages[currentLanguage].currency.symbol;
+	            }
+	        }
+
+	        return output;
+	    }
+
+	    function formatPercentage (n, format, roundingFunction) {
+	        var space = '',
+	            output,
+	            value = n._value * 100;
+
+	        // check for space before %
+	        if (format.indexOf(' %') > -1) {
+	            space = ' ';
+	            format = format.replace(' %', '');
+	        } else {
+	            format = format.replace('%', '');
+	        }
+
+	        output = formatNumber(value, format, roundingFunction);
+	        
+	        if (output.indexOf(')') > -1 ) {
+	            output = output.split('');
+	            output.splice(-1, 0, space + '%');
+	            output = output.join('');
+	        } else {
+	            output = output + space + '%';
+	        }
+
+	        return output;
+	    }
+
+	    function formatTime (n) {
+	        var hours = Math.floor(n._value/60/60),
+	            minutes = Math.floor((n._value - (hours * 60 * 60))/60),
+	            seconds = Math.round(n._value - (hours * 60 * 60) - (minutes * 60));
+	        return hours + ':' + ((minutes < 10) ? '0' + minutes : minutes) + ':' + ((seconds < 10) ? '0' + seconds : seconds);
+	    }
+
+	    function unformatTime (string) {
+	        var timeArray = string.split(':'),
+	            seconds = 0;
+	        // turn hours and minutes into seconds and add them all up
+	        if (timeArray.length === 3) {
+	            // hours
+	            seconds = seconds + (Number(timeArray[0]) * 60 * 60);
+	            // minutes
+	            seconds = seconds + (Number(timeArray[1]) * 60);
+	            // seconds
+	            seconds = seconds + Number(timeArray[2]);
+	        } else if (timeArray.length === 2) {
+	            // minutes
+	            seconds = seconds + (Number(timeArray[0]) * 60);
+	            // seconds
+	            seconds = seconds + Number(timeArray[1]);
+	        }
+	        return Number(seconds);
+	    }
+
+	    function formatNumber (value, format, roundingFunction) {
+	        var negP = false,
+	            signed = false,
+	            optDec = false,
+	            abbr = '',
+	            abbrK = false, // force abbreviation to thousands
+	            abbrM = false, // force abbreviation to millions
+	            abbrB = false, // force abbreviation to billions
+	            abbrT = false, // force abbreviation to trillions
+	            abbrForce = false, // force abbreviation
+	            bytes = '',
+	            ord = '',
+	            abs = Math.abs(value),
+	            suffixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+	            min,
+	            max,
+	            power,
+	            w,
+	            precision,
+	            thousands,
+	            d = '',
+	            neg = false;
+
+	        // check if number is zero and a custom zero format has been set
+	        if (value === 0 && zeroFormat !== null) {
+	            return zeroFormat;
+	        } else {
+	            // see if we should use parentheses for negative number or if we should prefix with a sign
+	            // if both are present we default to parentheses
+	            if (format.indexOf('(') > -1) {
+	                negP = true;
+	                format = format.slice(1, -1);
+	            } else if (format.indexOf('+') > -1) {
+	                signed = true;
+	                format = format.replace(/\+/g, '');
+	            }
+
+	            // see if abbreviation is wanted
+	            if (format.indexOf('a') > -1) {
+	                // check if abbreviation is specified
+	                abbrK = format.indexOf('aK') >= 0;
+	                abbrM = format.indexOf('aM') >= 0;
+	                abbrB = format.indexOf('aB') >= 0;
+	                abbrT = format.indexOf('aT') >= 0;
+	                abbrForce = abbrK || abbrM || abbrB || abbrT;
+
+	                // check for space before abbreviation
+	                if (format.indexOf(' a') > -1) {
+	                    abbr = ' ';
+	                    format = format.replace(' a', '');
+	                } else {
+	                    format = format.replace('a', '');
+	                }
+
+	                if (abs >= Math.pow(10, 12) && !abbrForce || abbrT) {
+	                    // trillion
+	                    abbr = abbr + languages[currentLanguage].abbreviations.trillion;
+	                    value = value / Math.pow(10, 12);
+	                } else if (abs < Math.pow(10, 12) && abs >= Math.pow(10, 9) && !abbrForce || abbrB) {
+	                    // billion
+	                    abbr = abbr + languages[currentLanguage].abbreviations.billion;
+	                    value = value / Math.pow(10, 9);
+	                } else if (abs < Math.pow(10, 9) && abs >= Math.pow(10, 6) && !abbrForce || abbrM) {
+	                    // million
+	                    abbr = abbr + languages[currentLanguage].abbreviations.million;
+	                    value = value / Math.pow(10, 6);
+	                } else if (abs < Math.pow(10, 6) && abs >= Math.pow(10, 3) && !abbrForce || abbrK) {
+	                    // thousand
+	                    abbr = abbr + languages[currentLanguage].abbreviations.thousand;
+	                    value = value / Math.pow(10, 3);
+	                }
+	            }
+
+	            // see if we are formatting bytes
+	            if (format.indexOf('b') > -1) {
+	                // check for space before
+	                if (format.indexOf(' b') > -1) {
+	                    bytes = ' ';
+	                    format = format.replace(' b', '');
+	                } else {
+	                    format = format.replace('b', '');
+	                }
+
+	                for (power = 0; power <= suffixes.length; power++) {
+	                    min = Math.pow(1024, power);
+	                    max = Math.pow(1024, power+1);
+
+	                    if (value >= min && value < max) {
+	                        bytes = bytes + suffixes[power];
+	                        if (min > 0) {
+	                            value = value / min;
+	                        }
+	                        break;
+	                    }
+	                }
+	            }
+
+	            // see if ordinal is wanted
+	            if (format.indexOf('o') > -1) {
+	                // check for space before
+	                if (format.indexOf(' o') > -1) {
+	                    ord = ' ';
+	                    format = format.replace(' o', '');
+	                } else {
+	                    format = format.replace('o', '');
+	                }
+
+	                ord = ord + languages[currentLanguage].ordinal(value);
+	            }
+
+	            if (format.indexOf('[.]') > -1) {
+	                optDec = true;
+	                format = format.replace('[.]', '.');
+	            }
+
+	            w = value.toString().split('.')[0];
+	            precision = format.split('.')[1];
+	            thousands = format.indexOf(',');
+
+	            if (precision) {
+	                if (precision.indexOf('[') > -1) {
+	                    precision = precision.replace(']', '');
+	                    precision = precision.split('[');
+	                    d = toFixed(value, (precision[0].length + precision[1].length), roundingFunction, precision[1].length);
+	                } else {
+	                    d = toFixed(value, precision.length, roundingFunction);
+	                }
+
+	                w = d.split('.')[0];
+
+	                if (d.split('.')[1].length) {
+	                    d = languages[currentLanguage].delimiters.decimal + d.split('.')[1];
+	                } else {
+	                    d = '';
+	                }
+
+	                if (optDec && Number(d.slice(1)) === 0) {
+	                    d = '';
+	                }
+	            } else {
+	                w = toFixed(value, null, roundingFunction);
+	            }
+
+	            // format number
+	            if (w.indexOf('-') > -1) {
+	                w = w.slice(1);
+	                neg = true;
+	            }
+
+	            if (thousands > -1) {
+	                w = w.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + languages[currentLanguage].delimiters.thousands);
+	            }
+
+	            if (format.indexOf('.') === 0) {
+	                w = '';
+	            }
+
+	            return ((negP && neg) ? '(' : '') + ((!negP && neg) ? '-' : '') + ((!neg && signed) ? '+' : '') + w + d + ((ord) ? ord : '') + ((abbr) ? abbr : '') + ((bytes) ? bytes : '') + ((negP && neg) ? ')' : '');
+	        }
+	    }
+
+	    /************************************
+	        Top Level Functions
+	    ************************************/
+
+	    numeral = function (input) {
+	        if (numeral.isNumeral(input)) {
+	            input = input.value();
+	        } else if (input === 0 || typeof input === 'undefined') {
+	            input = 0;
+	        } else if (!Number(input)) {
+	            input = numeral.fn.unformat(input);
+	        }
+
+	        return new Numeral(Number(input));
+	    };
+
+	    // version number
+	    numeral.version = VERSION;
+
+	    // compare numeral object
+	    numeral.isNumeral = function (obj) {
+	        return obj instanceof Numeral;
+	    };
+
+	    // This function will load languages and then set the global language.  If
+	    // no arguments are passed in, it will simply return the current global
+	    // language key.
+	    numeral.language = function (key, values) {
+	        if (!key) {
+	            return currentLanguage;
+	        }
+
+	        if (key && !values) {
+	            if(!languages[key]) {
+	                throw new Error('Unknown language : ' + key);
+	            }
+	            currentLanguage = key;
+	        }
+
+	        if (values || !languages[key]) {
+	            loadLanguage(key, values);
+	        }
+
+	        return numeral;
+	    };
+	    
+	    // This function provides access to the loaded language data.  If
+	    // no arguments are passed in, it will simply return the current
+	    // global language object.
+	    numeral.languageData = function (key) {
+	        if (!key) {
+	            return languages[currentLanguage];
+	        }
+	        
+	        if (!languages[key]) {
+	            throw new Error('Unknown language : ' + key);
+	        }
+	        
+	        return languages[key];
+	    };
+
+	    numeral.language('en', {
+	        delimiters: {
+	            thousands: ',',
+	            decimal: '.'
+	        },
+	        abbreviations: {
+	            thousand: 'k',
+	            million: 'm',
+	            billion: 'b',
+	            trillion: 't'
+	        },
+	        ordinal: function (number) {
+	            var b = number % 10;
+	            return (~~ (number % 100 / 10) === 1) ? 'th' :
+	                (b === 1) ? 'st' :
+	                (b === 2) ? 'nd' :
+	                (b === 3) ? 'rd' : 'th';
+	        },
+	        currency: {
+	            symbol: '$'
+	        }
+	    });
+
+	    numeral.zeroFormat = function (format) {
+	        zeroFormat = typeof(format) === 'string' ? format : null;
+	    };
+
+	    numeral.defaultFormat = function (format) {
+	        defaultFormat = typeof(format) === 'string' ? format : '0.0';
+	    };
+
+	    /************************************
+	        Helpers
+	    ************************************/
+
+	    function loadLanguage(key, values) {
+	        languages[key] = values;
+	    }
+
+	    /************************************
+	        Floating-point helpers
+	    ************************************/
+
+	    // The floating-point helper functions and implementation
+	    // borrows heavily from sinful.js: http://guipn.github.io/sinful.js/
+
+	    /**
+	     * Array.prototype.reduce for browsers that don't support it
+	     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce#Compatibility
+	     */
+	    if ('function' !== typeof Array.prototype.reduce) {
+	        Array.prototype.reduce = function (callback, opt_initialValue) {
+	            'use strict';
+	            
+	            if (null === this || 'undefined' === typeof this) {
+	                // At the moment all modern browsers, that support strict mode, have
+	                // native implementation of Array.prototype.reduce. For instance, IE8
+	                // does not support strict mode, so this check is actually useless.
+	                throw new TypeError('Array.prototype.reduce called on null or undefined');
+	            }
+	            
+	            if ('function' !== typeof callback) {
+	                throw new TypeError(callback + ' is not a function');
+	            }
+
+	            var index,
+	                value,
+	                length = this.length >>> 0,
+	                isValueSet = false;
+
+	            if (1 < arguments.length) {
+	                value = opt_initialValue;
+	                isValueSet = true;
+	            }
+
+	            for (index = 0; length > index; ++index) {
+	                if (this.hasOwnProperty(index)) {
+	                    if (isValueSet) {
+	                        value = callback(value, this[index], index, this);
+	                    } else {
+	                        value = this[index];
+	                        isValueSet = true;
+	                    }
+	                }
+	            }
+
+	            if (!isValueSet) {
+	                throw new TypeError('Reduce of empty array with no initial value');
+	            }
+
+	            return value;
+	        };
+	    }
+
+	    
+	    /**
+	     * Computes the multiplier necessary to make x >= 1,
+	     * effectively eliminating miscalculations caused by
+	     * finite precision.
+	     */
+	    function multiplier(x) {
+	        var parts = x.toString().split('.');
+	        if (parts.length < 2) {
+	            return 1;
+	        }
+	        return Math.pow(10, parts[1].length);
+	    }
+
+	    /**
+	     * Given a variable number of arguments, returns the maximum
+	     * multiplier that must be used to normalize an operation involving
+	     * all of them.
+	     */
+	    function correctionFactor() {
+	        var args = Array.prototype.slice.call(arguments);
+	        return args.reduce(function (prev, next) {
+	            var mp = multiplier(prev),
+	                mn = multiplier(next);
+	        return mp > mn ? mp : mn;
+	        }, -Infinity);
+	    }        
+
+
+	    /************************************
+	        Numeral Prototype
+	    ************************************/
+
+
+	    numeral.fn = Numeral.prototype = {
+
+	        clone : function () {
+	            return numeral(this);
+	        },
+
+	        format : function (inputString, roundingFunction) {
+	            return formatNumeral(this, 
+	                  inputString ? inputString : defaultFormat, 
+	                  (roundingFunction !== undefined) ? roundingFunction : Math.round
+	              );
+	        },
+
+	        unformat : function (inputString) {
+	            if (Object.prototype.toString.call(inputString) === '[object Number]') { 
+	                return inputString; 
+	            }
+	            return unformatNumeral(this, inputString ? inputString : defaultFormat);
+	        },
+
+	        value : function () {
+	            return this._value;
+	        },
+
+	        valueOf : function () {
+	            return this._value;
+	        },
+
+	        set : function (value) {
+	            this._value = Number(value);
+	            return this;
+	        },
+
+	        add : function (value) {
+	            var corrFactor = correctionFactor.call(null, this._value, value);
+	            function cback(accum, curr, currI, O) {
+	                return accum + corrFactor * curr;
+	            }
+	            this._value = [this._value, value].reduce(cback, 0) / corrFactor;
+	            return this;
+	        },
+
+	        subtract : function (value) {
+	            var corrFactor = correctionFactor.call(null, this._value, value);
+	            function cback(accum, curr, currI, O) {
+	                return accum - corrFactor * curr;
+	            }
+	            this._value = [value].reduce(cback, this._value * corrFactor) / corrFactor;            
+	            return this;
+	        },
+
+	        multiply : function (value) {
+	            function cback(accum, curr, currI, O) {
+	                var corrFactor = correctionFactor(accum, curr);
+	                return (accum * corrFactor) * (curr * corrFactor) /
+	                    (corrFactor * corrFactor);
+	            }
+	            this._value = [this._value, value].reduce(cback, 1);
+	            return this;
+	        },
+
+	        divide : function (value) {
+	            function cback(accum, curr, currI, O) {
+	                var corrFactor = correctionFactor(accum, curr);
+	                return (accum * corrFactor) / (curr * corrFactor);
+	            }
+	            this._value = [this._value, value].reduce(cback);            
+	            return this;
+	        },
+
+	        difference : function (value) {
+	            return Math.abs(numeral(this._value).subtract(value).value());
+	        }
+
+	    };
+
+	    /************************************
+	        Exposing Numeral
+	    ************************************/
+
+	    // CommonJS module is defined
+	    if (hasModule) {
+	        module.exports = numeral;
+	    }
+
+	    /*global ender:false */
+	    if (typeof ender === 'undefined') {
+	        // here, `this` means `window` in the browser, or `global` on the server
+	        // add `numeral` as a global object via a string identifier,
+	        // for Closure Compiler 'advanced' mode
+	        this['numeral'] = numeral;
+	    }
+
+	    /*global define:false */
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	            return numeral;
+	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    }
+	}).call(this);
+
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(2);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(14);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(15);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(19);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(44);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _react = __webpack_require__(51);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var numeral = __webpack_require__(260);
 
 	var Pizza = function (_React$Component) {
 	    (0, _inherits3.default)(Pizza, _React$Component);
@@ -25310,8 +26071,10 @@
 	    }
 
 	    (0, _createClass3.default)(Pizza, [{
-	        key: "addToOrder",
-	        value: function addToOrder() {}
+	        key: "addPizza",
+	        value: function addPizza() {
+	            this.props.addToOrder(this.props.pizza);
+	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
@@ -25335,7 +26098,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "add-order-button", onClick: this.addToOrder.bind(this) },
+	                        { className: "add-order-button", onClick: this.addPizza.bind(this) },
 	                        "Add to order"
 	                    )
 	                ),
@@ -25355,8 +26118,7 @@
 	                    _react2.default.createElement(
 	                        "span",
 	                        null,
-	                        "$",
-	                        this.props.pizza.price
+	                        numeral(this.props.pizza.price).format("$0,0.00")
 	                    )
 	                )
 	            );
@@ -25368,7 +26130,7 @@
 	exports.default = Pizza;
 
 /***/ },
-/* 267 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25385,7 +26147,7 @@
 
 	var _createClass3 = _interopRequireDefault(_createClass2);
 
-	var _axios = __webpack_require__(268);
+	var _axios = __webpack_require__(263);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -25397,8 +26159,8 @@
 	    }
 
 	    (0, _createClass3.default)(PizzaService, [{
-	        key: "get",
-	        value: function get(url) {
+	        key: "getAll",
+	        value: function getAll(url) {
 	            return _axios2.default.get(url).then(function (response) {
 	                return response.data;
 	            }).catch(function (error) {
@@ -25421,24 +26183,24 @@
 	exports.default = PizzaService;
 
 /***/ },
-/* 268 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(269);
+	module.exports = __webpack_require__(264);
 
 /***/ },
-/* 269 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(270);
-	var utils = __webpack_require__(271);
-	var dispatchRequest = __webpack_require__(272);
-	var InterceptorManager = __webpack_require__(280);
-	var isAbsoluteURL = __webpack_require__(281);
-	var combineURLs = __webpack_require__(282);
-	var bind = __webpack_require__(283);
+	var defaults = __webpack_require__(265);
+	var utils = __webpack_require__(266);
+	var dispatchRequest = __webpack_require__(267);
+	var InterceptorManager = __webpack_require__(275);
+	var isAbsoluteURL = __webpack_require__(276);
+	var combineURLs = __webpack_require__(277);
+	var bind = __webpack_require__(278);
 
 	function Axios(defaultConfig) {
 	  this.defaultConfig = utils.merge({
@@ -25506,7 +26268,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(284);
+	axios.spread = __webpack_require__(279);
 
 	// Expose interceptors
 	axios.interceptors = defaultInstance.interceptors;
@@ -25537,12 +26299,12 @@
 
 
 /***/ },
-/* 270 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(271);
+	var utils = __webpack_require__(266);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -25606,7 +26368,7 @@
 
 
 /***/ },
-/* 271 */
+/* 266 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25852,7 +26614,7 @@
 
 
 /***/ },
-/* 272 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25869,10 +26631,10 @@
 	    try {
 	      if ((typeof XMLHttpRequest !== 'undefined') || (typeof ActiveXObject !== 'undefined')) {
 	        // For browsers use XHR adapter
-	        __webpack_require__(273)(resolve, reject, config);
+	        __webpack_require__(268)(resolve, reject, config);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        __webpack_require__(273)(resolve, reject, config);
+	        __webpack_require__(268)(resolve, reject, config);
 	      }
 	    } catch (e) {
 	      reject(e);
@@ -25884,20 +26646,20 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(54)))
 
 /***/ },
-/* 273 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	/*global ActiveXObject:true*/
 
-	var defaults = __webpack_require__(270);
-	var utils = __webpack_require__(271);
-	var buildURL = __webpack_require__(274);
-	var parseHeaders = __webpack_require__(275);
-	var transformData = __webpack_require__(276);
-	var isURLSameOrigin = __webpack_require__(277);
-	var btoa = window.btoa || __webpack_require__(278);
+	var defaults = __webpack_require__(265);
+	var utils = __webpack_require__(266);
+	var buildURL = __webpack_require__(269);
+	var parseHeaders = __webpack_require__(270);
+	var transformData = __webpack_require__(271);
+	var isURLSameOrigin = __webpack_require__(272);
+	var btoa = window.btoa || __webpack_require__(273);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  // Transform request data
@@ -25974,7 +26736,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(279);
+	    var cookies = __webpack_require__(274);
 
 	    // Add xsrf header
 	    var xsrfValue =  config.withCredentials || isURLSameOrigin(config.url) ?
@@ -26025,12 +26787,12 @@
 
 
 /***/ },
-/* 274 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(271);
+	var utils = __webpack_require__(266);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -26098,12 +26860,12 @@
 
 
 /***/ },
-/* 275 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(271);
+	var utils = __webpack_require__(266);
 
 	/**
 	 * Parse headers into an object
@@ -26141,12 +26903,12 @@
 
 
 /***/ },
-/* 276 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(271);
+	var utils = __webpack_require__(266);
 
 	/**
 	 * Transform the data for a request or a response
@@ -26167,12 +26929,12 @@
 
 
 /***/ },
-/* 277 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(271);
+	var utils = __webpack_require__(266);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -26241,7 +27003,7 @@
 
 
 /***/ },
-/* 278 */
+/* 273 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26283,12 +27045,12 @@
 
 
 /***/ },
-/* 279 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(271);
+	var utils = __webpack_require__(266);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -26342,12 +27104,12 @@
 
 
 /***/ },
-/* 280 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(271);
+	var utils = __webpack_require__(266);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -26400,7 +27162,7 @@
 
 
 /***/ },
-/* 281 */
+/* 276 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26420,7 +27182,7 @@
 
 
 /***/ },
-/* 282 */
+/* 277 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26438,7 +27200,7 @@
 
 
 /***/ },
-/* 283 */
+/* 278 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26455,7 +27217,7 @@
 
 
 /***/ },
-/* 284 */
+/* 279 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26488,7 +27250,7 @@
 
 
 /***/ },
-/* 285 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26523,59 +27285,48 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Invoice = function (_React$Component) {
-	    (0, _inherits3.default)(Invoice, _React$Component);
+	var About = function (_React$Component) {
+	    (0, _inherits3.default)(About, _React$Component);
 
-	    function Invoice(props) {
-	        (0, _classCallCheck3.default)(this, Invoice);
-
-	        var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Invoice).call(this, props));
-
-	        _this.state = { total: 0, gst: 0.1 };
-	        return _this;
+	    function About() {
+	        (0, _classCallCheck3.default)(this, About);
+	        return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(About).call(this));
 	    }
 
-	    (0, _createClass3.default)(Invoice, [{
-	        key: "calculateTotal",
-	        value: function calculateTotal() {
-	            return this.state.total * this.state.gst;
-	        }
-	    }, {
+	    (0, _createClass3.default)(About, [{
 	        key: "render",
 	        value: function render() {
 
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "invoice" },
-	                _react2.default.createElement("div", { className: "invoice-number" }),
+	                null,
 	                _react2.default.createElement(
-	                    "h3",
+	                    "h1",
 	                    null,
-	                    "GST ",
-	                    this.state.gst * 100,
-	                    "%"
-	                ),
-	                _react2.default.createElement("hr", null),
-	                _react2.default.createElement(
-	                    "h2",
-	                    null,
-	                    "Total"
-	                ),
-	                _react2.default.createElement("hr", null),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "invoice-total" },
-	                    " $",
-	                    this.state.total,
-	                    " "
+	                    "About Component"
 	                )
 	            );
 	        }
 	    }]);
-	    return Invoice;
+	    return About;
 	}(_react2.default.Component);
 
-	exports.default = Invoice;
+	exports.default = About;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);

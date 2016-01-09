@@ -6,7 +6,7 @@ export default class PizzaService {
 
     }
 
-    get(url) {
+    getAll(url) {
         return axios.get(url)
             .then((response) => response.data)
             .catch((error) => error);

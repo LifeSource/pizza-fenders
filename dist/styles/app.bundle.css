@@ -36,8 +36,8 @@ body {
   font-family: 'Monda', sans-serif;
 }
 .logo {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
 }
 .pizza-menu {
   padding: 10px;
@@ -47,6 +47,9 @@ body {
   -webkit-justify-content: space-around;
       -ms-flex-pack: distribute;
           justify-content: space-around;
+}
+.pizza-list {
+  width: 50%;
 }
 .pizza-item {
   padding: 10px;
@@ -78,15 +81,6 @@ body {
 .price-tag span {
   margin: auto;
 }
-.invoice {
-  width: 600px;
-  border: 2px solid #000;
-}
-.invoice h2, .invoice .invoice-total {
-  margin-right: 20px;
-  font-size: 2.5em;
-  text-align: right;
-}
 .add-order-button {
   color: #eee;
   width: 150px;
@@ -103,4 +97,43 @@ body {
 .thumbnail {
   width: 150px;
   height: 100px;
+}
+.invoice {
+  width: 40%;
+  border: 2px solid #000;
+}
+.invoice h2, .invoice .invoice-total {
+  margin-right: 20px;
+  font-size: 2.5em;
+  text-align: right;
+}
+.total {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.orderItem {
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-name: slidein;
+          animation-name: slidein;
+}
+@-webkit-keyframes slidein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slidein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

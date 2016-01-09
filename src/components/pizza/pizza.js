@@ -1,4 +1,5 @@
 import React from "react";
+let numeral = require("numeral");
 
 class Pizza extends React.Component {
 
@@ -6,8 +7,9 @@ class Pizza extends React.Component {
         super(props);
     }
 
-    addToOrder() {
 
+    addPizza() {
+        this.props.addToOrder(this.props.pizza);
     }
 
     render() {
@@ -18,7 +20,7 @@ class Pizza extends React.Component {
                     <strong>{this.props.pizza.category}</strong> 
                     <br/>
                     <span>{this.props.pizza.content}</span> 
-                    <div className="add-order-button" onClick={this.addToOrder.bind(this)}>Add to order</div>
+                    <div className="add-order-button" onClick={this.addPizza.bind(this)}>Add to order</div>
                 </div>
 
                 <div className="pizza-profile">
@@ -27,7 +29,7 @@ class Pizza extends React.Component {
                 </div>
 
                 <div className="price-tag">
-                    <span>${this.props.pizza.price}</span>
+                    <span>{numeral(this.props.pizza.price).format("$0,0.00")}</span>
                 </div>
             </div>        
         );

@@ -1,4 +1,6 @@
 import React from "react";
+import OrderItem from "../order/orderItem";
+let numeral = require("numeral");
 
 class Invoice extends React.Component {
 
@@ -7,22 +9,26 @@ class Invoice extends React.Component {
         this.state = { total: 0, gst: 0.1 };
     }
 
-    calculateTotal() {
-        return this.state.total * this.state.gst;
-    }
-
     render() {
 
+        var total = numeral(this.props.orders.total).format("$0,0.00");
         return (
             <div className="invoice">
-                <div className="invoice-number">
-                    
+                <div>
+                    {this.props.orders.items.map((order, index) => {
+                        return (
+                            <OrderItem order={order} key={index} />
+                        );
+                    })}
                 </div>
-                <h3>GST {this.state.gst * 100}%</h3>
+
+                <h3>GST +{this.state.gst * 100}%</h3>
                 <hr/>
-                <h2>Total</h2>
+                <div className="total">
+                    <h2>Total:</h2>
+                    <div className="invoice-total"> {total} </div>
+                </div>
                 <hr/>
-                <div className="invoice-total"> ${this.state.total} </div>
             </div>
         );
     }
