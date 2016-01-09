@@ -1,12 +1,24 @@
 "use strict";
 
+module.exports = function (config) {
+    
 var mongoose = require('mongoose'),
     seedData = require('./models/seedData');
 
 var Pizza = require("./models/pizza/pizza.model");
 
-var connectionString = 'mongodb://localhost/pizza-fenders',
-    db = mongoose.connect(connectionString);
+var connectionString;
+
+switch (config.env) {
+    case "production":
+        connectionString = "mongodb://fenders:fenders@ds039185.mongolab.com:39185/pizza-fenders";
+        break;
+    default:
+        connectionString = "mongodb://localhost/pizza-fenders";
+        break;
+}
+
+var db = mongoose.connect(connectionString);
 
 db.connection.on('connected', function() {
     console.log('Mongoose connected to ' + connectionString);
@@ -62,3 +74,5 @@ process.on('SIGTERM', function() {
         process.exit(0);
     });
 });
+
+};

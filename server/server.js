@@ -12,7 +12,7 @@ var config = {
 
 var app = express();
 
-require("./database.js");
+require("./database.js")(config);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
