@@ -9,10 +9,11 @@ export default class OrderItem extends React.Component {
 
     render() {
 
-        let price = numeral(this.props.order.price).format("$0,0.00");
+        let item = this.props.order;
+        let totalPizzaPrice= numeral(item.price * item.qty).format("$0,0.00");
         return (
             <div className="orderItem">
-                <span>{this.props.order.name} - {price}</span> 
+                {item.qty} x {item.name} - {totalPizzaPrice}
                 <hr/>
             </div>
         );

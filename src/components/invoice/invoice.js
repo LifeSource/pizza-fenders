@@ -22,7 +22,7 @@ class Invoice extends React.Component {
                         return <OrderItem order={order} key={index} />;
                     })}
                 </div>
-                <h3>+{this.state.gst * 100}% GST</h3>
+                <h3>+{this.state.gst * 100}% GST (Goods and Service Tax)</h3>
                 <hr/>
                 <div className="total">
                     <h2>Total:</h2>

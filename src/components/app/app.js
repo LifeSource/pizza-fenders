@@ -3,6 +3,7 @@ import Invoice from "../invoice/invoice";
 import Pizza from "../pizza/pizza";
 import PizzaList from "../pizza/pizzaList";
 import PizzaService from "../pizza/pizza.service";
+import _ from "lodash";
 
 export default class App extends React.Component {
 
@@ -12,48 +13,53 @@ export default class App extends React.Component {
         this.pizzaService = new PizzaService();
 
         this.state = { 
-            order: {
-                items: [],
-                total: 0
-            },
-            pizzas: [] 
+            pizzas: [],
+            order: { items: [] , total: 0 }
         };
     }
 
     addOrder(pizza) {
 
-        if (!this.alreadyInOrder(pizza)) {
-            this.setState({ 
-                order: {
-                    items: this.state.order.items.concat(pizza),
-                    total: this.calculateTotal(pizza.price)
-                }
-            });
-        } else {
-            this.setState({
-                order: {
-                    items: this.state.order.items,
-                    total: this.calculateTotal(pizza.price)
-                }
-            });
-        }
+        const items = this.state.order.items;
+        var item = { name: pizza.name, price: pizza.price, qty: 1 };
+        var exist = _.find(items, { name: pizza.name });
         
+        if (!exist) {
+            items.push(item);
+            this.updateState(items);
+        } else {
+            var index = items.indexOf(exist);
+            items[index].qty += 1;
+            this.updateState(items);
+        }
     }
 
-    alreadyInOrder(pizza) {
-        return !(this.state.order.items.indexOf(pizza) === -1);
+    updateState(items) {
+        this.setState({
+            order: {
+                items: items,
+                total: this.calculateTotal(this.state.order.items)
+            }
+        });
     }
 
-    calculateTotal(pizzaPrice) {
+    calculateTotal(items) {
+
         const gst = 1.1;
-        return (this.state.order.total += pizzaPrice) * gst;  
+        let total = 0;
+
+        for (let i = 0; i < items.length; i++) {
+            total += items[i].qty * items[i].price;
+        }
+
+        return total * gst;
     }
 
     componentDidMount() {
         this.pizzaService
             .getAll(this.props.url)
             .then((data) => this.setState({ pizzas: data}))
-            .catch((error) =>  console.log("Error: ", error));
+            .catch((error) => console.error("Error: ", error));
     }
 
     render() {

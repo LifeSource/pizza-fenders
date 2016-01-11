@@ -32,8 +32,14 @@ class About extends React.Component {
                 Below are the requirements for this application while fictious but can actually be real world business cases:
                 <ul>
                     <li>There is a simple menu that list the pizzas available.</li>
-                    <li>The application has a simple invoicing system that displays the ordered item from the menu.</li>
+                    <li>The application has a simple invoicing system that displays the ordered item and the total cost.</li>
+                    <li>The invoice should keep track of the quantity of items purchased and update the price appropriately including any tax.</li>
+                    <li>The prices and total should be update in real-time according to the purhasing of items from the menu.</li>
+                    <li>It should have some simple animation and interactivity.</li>
                 </ul>
+
+                <h3>Disclaimer</h3>
+                The images used on this site are solely for demonstration purposes and all copyrights belongs to their respective owners.
             </div>  
         );
     }
