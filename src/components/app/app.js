@@ -21,14 +21,14 @@ export default class App extends React.Component {
     addOrder(pizza) {
 
         const items = this.state.order.items;
-        var item = { name: pizza.name, price: pizza.price, qty: 1 };
-        var exist = _.find(items, { name: pizza.name });
+        let item = { name: pizza.name, price: pizza.price, qty: 1 };
+        let exist = _.find(items, { name: pizza.name });
         
         if (!exist) {
             items.push(item);
             this.updateState(items);
         } else {
-            var index = items.indexOf(exist);
+            let index = items.indexOf(exist);
             items[index].qty += 1;
             this.updateState(items);
         }
