@@ -11,7 +11,7 @@ module.exports = {
             thumbnail: "hawaiian.png"
         },
         {
-            name: "Supereme",
+            name: "Supreme",
             content: "pepperoni, capsicum, bacon, ground beef, sausage, mushroom, pineapple, mozzarella, oregano",
             category: "Traditional Pizza",
             isVeg: false,
@@ -20,7 +20,7 @@ module.exports = {
             thumbnail: "supreme.png"
         },
         {
-            name: "Vege Supereme",
+            name: "Vege Supreme",
             content: "olive, capsicum, mozzarella, oregano",
             category: "Traditional Pizza",
             isVeg: true,
