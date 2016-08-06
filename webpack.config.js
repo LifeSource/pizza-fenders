@@ -27,8 +27,8 @@ module.exports = {
                 include: [config.src, config.tests],
                 exclude: [config.nodeModules],
                 query: {
-                     plugins: ['transform-runtime'],
-                     presets: ['es2015', 'stage-0', 'react']
+                     plugins: ["transform-runtime"],
+                     presets: ["es2015", "stage-0", "react"]
                 }
             },
             {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all --parallel serve watch:**",
+    "start": "npm-run-all serve watch:**",
     "clean": "rimraf dist",
     "make": "npm-run-all make:**",
     "make:dist": "mkdirp dist",
@@ -30,7 +30,6 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.2.3",
-    "babel": "^6.3.26",
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.1",
     "babel-plugin-transform-runtime": "^6.3.13",
@@ -45,7 +44,6 @@
     "eslint-plugin-react": "^3.2.3",
     "extract-text-webpack-plugin": "^1.0.0",
     "imagemin-cli": "^2.1.0",
-    "jsx-loader": "^0.13.2",
     "karma": "^0.13.9",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chai": "^0.1.0",
